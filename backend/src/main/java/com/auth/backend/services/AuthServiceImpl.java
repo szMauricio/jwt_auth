@@ -31,13 +31,15 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authManager;
     private final JwtUtil jwtUtil;
+    private final EmailService emailService;
 
     public AuthServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder,
-            AuthenticationManager authManager, JwtUtil jwtUtil) {
+            AuthenticationManager authManager, JwtUtil jwtUtil, EmailService emailService) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.authManager = authManager;
         this.jwtUtil = jwtUtil;
+        this.emailService = emailService;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class AuthServiceImpl implements AuthService {
         user.setTokenExpiry(LocalDateTime.now().plusHours(24));
         repository.save(user);
 
-        System.out.println("Reset token for " + email + ": " + resetToken);
+        emailService.sendResetPasswordEmail(email, resetToken);
 
         return "Reset password email sent";
     }
