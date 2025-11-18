@@ -1,5 +1,7 @@
 package com.auth.backend.controllers;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +45,14 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+    public ResponseEntity<Map<String, String>> forgotPassword(@RequestParam String email) {
         String result = authService.forgotPassword(email);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(Map.of("message", result));
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest req) {
+    public ResponseEntity<Map<String, String>> resetPassword(@RequestBody ResetPasswordRequest req) {
         String result = authService.resetPassword(req);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(Map.of("message", result));
     }
 }

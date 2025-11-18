@@ -3,10 +3,14 @@ import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { Dashboard } from './features/dashaboard/dashboard/dashboard';
 import { authGuard } from './guards/auth/auth-guard';
+import { ForgotPassword } from './features/auth/forgot-password/forgot-password';
+import { ResetPassword } from './features/auth/reset-password/reset-password';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'reset-password', component: ResetPassword },
   { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
 
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

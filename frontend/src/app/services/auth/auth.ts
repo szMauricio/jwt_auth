@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegisterRequest } from '../../models/auth/register-request';
 import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../../models/auth/auth-response';
 import { LoginRequest } from '../../models/auth/login-request';
+import { RegisterRequest } from '../../models/auth/register-request';
+import { ResetPasswordRequest } from '../../models/auth/reset-password-request';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,16 @@ export class Auth {
     return this.http.get<boolean>(`${this.apiUrl}/check-email`, {
       params: { email },
     });
+  }
+
+  forgotPassword(email: string): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/forgot-password`, null, {
+      params: { email },
+    });
+  }
+
+  resetPassword(request: ResetPasswordRequest): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/reset-password`, request);
   }
 
   private storeAuthData(response: AuthResponse): void {
