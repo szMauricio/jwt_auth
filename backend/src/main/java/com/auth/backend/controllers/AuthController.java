@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.auth.backend.dtos.AuthResponse;
 import com.auth.backend.dtos.LoginRequest;
 import com.auth.backend.dtos.RegisterRequest;
+import com.auth.backend.dtos.ResetPasswordRequest;
 import com.auth.backend.services.AuthService;
 
 import jakarta.validation.Valid;
@@ -39,5 +40,17 @@ public class AuthController {
     @GetMapping("/check-email")
     public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
         return ResponseEntity.ok(authService.userExists(email));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+        String result = authService.forgotPassword(email);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest req) {
+        String result = authService.resetPassword(req);
+        return ResponseEntity.ok(result);
     }
 }

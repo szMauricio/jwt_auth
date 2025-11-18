@@ -1,5 +1,7 @@
 package com.auth.backend.models;
 
+import java.time.LocalDateTime;
+
 import com.auth.backend.models.enums.Role;
 
 import jakarta.persistence.Column;
@@ -37,6 +39,12 @@ public class User {
 
     @Column(name = "is_enabled")
     private boolean enabled = true;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Column(name = "token_expiry")
+    private LocalDateTime tokenExpiry;
 
     public User() {
     }
@@ -85,5 +93,21 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public LocalDateTime getTokenExpiry() {
+        return tokenExpiry;
+    }
+
+    public void setTokenExpiry(LocalDateTime tokenExpiry) {
+        this.tokenExpiry = tokenExpiry;
     }
 }
